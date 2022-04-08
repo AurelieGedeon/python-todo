@@ -11,9 +11,10 @@ db = SQLAlchemy(app)  # initialize database
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # this is so the user can't put in a blank
-    content = db.Column(db.string(200), nullable=False)
+    content = db.Column(db.String(200), nullable=False)
     completed = db.Column(db.Integer, default=0)
     data_created = db.Column(db.DateTime, default=datetime.utcnow)
+    is_complete = db.Column(db.Boolean, default=False)
     # data_due = db.Column(db.DateTime, default=date.)
 
     def __repr__(self):
@@ -21,7 +22,7 @@ class Todo(db.Model):
         return '<Task %r>' % self.id
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 

@@ -2,3 +2,9 @@ body {
 margin: 0;
 font-family: sans-serif;
 };
+
+table tr td{
+    width:100%;
+    border:5px solid;
+    padding:2px;
+}
