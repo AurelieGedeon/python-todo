@@ -22,6 +22,18 @@ class Todo(db.Model):
         return '<Task %r>' % self.id
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(200), nullable=False)
+    last_name = db.Column(db.String(200), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        # every time you create a new task, it will return task and the id of the task
+        return '<User %r>' % self.id
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':

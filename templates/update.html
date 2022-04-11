@@ -2,11 +2,13 @@
 <title>Task Striker</title>
 {% endblock %} {% block body %}
 <div class="content">
-  <h1>Update Task</h1>
+  <h1 class="headers">Update Task</h1>
 
-  <form action="/update/{{task.id}}" method="POST">
-    <input type="text" name="content" id="content" value="{{task.content}}" />
-    <input type="submit" value="Update Task" />
-  </form>
+  <div class="form">
+    <form action="/update/{{task.id}}" method="POST">
+      <input type="text" name="content" id="content" value="{{task.content}}" />
+      <input type="submit" value="Update Task" />
+    </form>
+  </div>
 </div>
 {% endblock %}
