@@ -20,23 +20,40 @@
     <tr>
       <td>{{task.content}}</td>
       <td>{{task.data_created.date()}}</td>
-      <td></td>
+      <td>{{task.due_date.date()}}</td>
       <td>
-        <a href="/delete/{{task.id}}">Delete</a>
+        <a href="/task/{{task.id}}/delete">Delete</a>
         <br />
-        <a href="/update/{{task.id}}">Update</a>
+        <a href="/task/{{task.id}}/update">Update</a>
       </td>
       <td>
-        <input type="checkbox" name="completed" value="completed" />
-        {{task.is_complete}}
+        {% if task.is_complete == True %}
+        <p>Completed</p>
+        <form action="/task/{{task.id}}/undo" method="POST">
+          <input type="submit" value="Undo" />
+        </form>
+        {% else %}
+        <form action="/task/{{task.id}}/complete" method="POST">
+          <input type="submit" value="Complete Task" />
+        </form>
+        {% endif %}
       </td>
     </tr>
     {% endfor %}
   </table>
   {% endif %}
   <div class="form">
-    <form action="/" method="POST">
+    <form action="/task/add" method="POST">
       <input type="text" name="content" id="content" />
+      <!-- replace value and min with today's date -->
+      <input
+        type="date"
+        id="due_date"
+        name="due_date"
+        value="2022-04-11"
+        min="2022-04-11"
+        max="2028-12-31"
+      />
       <input type="submit" value="Add Task" />
     </form>
   </div>

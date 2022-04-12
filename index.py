@@ -12,14 +12,14 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # this is so the user can't put in a blank
     content = db.Column(db.String(200), nullable=False)
+    due_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     completed = db.Column(db.Integer, default=0)
     data_created = db.Column(db.DateTime, default=datetime.utcnow)
     is_complete = db.Column(db.Boolean, default=False)
-    # data_due = db.Column(db.DateTime, default=date.)
 
     def __repr__(self):
         # every time you create a new task, it will return task and the id of the task
-        return '<Task %r>' % self.id
+        return '<Todo %r>' % self.id
 
 
 class User(db.Model):
@@ -34,25 +34,53 @@ class User(db.Model):
         return '<User %r>' % self.id
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/task/<int:id>/complete', methods=['POST'])
+def completeTask(id):
+    task_to_complete = Todo.query.get_or_404(id)
+    task_to_complete.is_complete = True
+
+    try:
+        db.session.commit()
+        return redirect('/')
+    except:
+        return "Unable to complete task"
+
+
+@app.route('/task/<int:id>/undo', methods=['POST'])
+def uncompleteTask(id):
+    task_to_complete = Todo.query.get_or_404(id)
+    task_to_complete.is_complete = False
+
+    try:
+        db.session.commit()
+        return redirect('/')
+    except:
+        return "Unable to complete task"
+
+
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == 'POST':
-        task_content = request.form['content']
-        new_task = Todo(content=task_content)
-
-        try:
-            db.session.add(new_task)
-            db.session.commit()
-            return redirect('/')
-
-        except:
-            "Unable to add task"
-    else:
-        tasks = Todo.query.order_by(Todo.data_created).all()
-        return render_template('index.html', tasks=tasks)
+    tasks = Todo.query.order_by(Todo.data_created).all()
+    return render_template('index.html', tasks=tasks)
 
 
-@app.route('/delete/<int:id>')
+@app.route('/task/add', methods=['POST'])
+def addTask():
+    task_content = request.form['content']
+    task_due_date = request.form['due_date']
+    datetime_object = datetime.fromisoformat(task_due_date)
+    print(datetime_object)
+    new_task = Todo(content=task_content, due_date=datetime_object)
+
+    try:
+        db.session.add(new_task)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return "Unable to add task"
+
+
+@app.route('/task/<int:id>/delete')
 def delete(id):
     task_to_delete = Todo.query.get_or_404(id)
 
@@ -64,7 +92,7 @@ def delete(id):
         return "Unable to delete task"
 
 
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
+@app.route('/task/<int:id>/update', methods=['GET', 'POST'])
 def update(id):
     task = Todo.query.get_or_404(id)
     if request.method == 'POST':
@@ -78,6 +106,16 @@ def update(id):
             return "Unable to update task"
     else:
         return render_template('update.html', task=task)
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 
 if __name__ == '__main__':
