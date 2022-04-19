@@ -2,6 +2,19 @@
 <title>Signup</title>
 <body>
   <h1>Signup</h1>
+
+  <form method="POST" action="/signup">
+    {{form.hidden_tag()}} {{form.first_name}}
+    <br />
+    {{form.last_name}}
+    <br />
+    {{form.email}}
+    <br />
+    {{form.password}}
+    <br />
+    {{form.submit}}
+  </form>
+
   <a href="/login">Already have an account? Login</a>
 </body>
 
