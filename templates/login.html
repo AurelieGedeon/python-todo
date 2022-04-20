@@ -1,15 +1,53 @@
 {% extends 'base.html' %} {% block head %}
-<title>Login</title>
+<head>
+  <title>Login</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+  />
+</head>
 <body>
   <h1>Login</h1>
 
-  <form method="POST" action="/login">
-    {{form.hidden_tag()}} {{form.email}}
+  <form method="POST" action="/login" style="max-width: 30%">
+    {{form.hidden_tag()}} {{form.email(class="form-control form-floating mb-3",
+    placeholder="Email", id="floatingInput")}}
+
     <br />
-    {{form.password}}
+    {{form.password (class="form-control form-floating mb-3",
+    placeholder="Password", id="floatingPassword")}}
     <br />
-    {{form.submit}}
+    {{form.submit (class= "btn btn-primary", value="Login")}}
   </form>
+
+  <form style="max-width: 30%" method="POST" action="/login">
+    {{form.hidden_tag()}}
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">Email address</label>
+      <div id="emailHelp" class="form-text">
+        We'll never share your email with anyone else.
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+      />
+      <label for="floatingPassword">Password</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+
   <a href="/signup">Don't have an account? Signup</a>
 </body>
 

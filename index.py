@@ -118,7 +118,6 @@ def index():
     tasks = Todo.query.order_by(Todo.data_created).filter_by(
         user_id=current_user.id).all()
     logged_in_user = User.query.filter_by(id=current_user.id).first()
-    print(logged_in_user.first_name)
     return render_template('index.html', tasks=tasks, user=logged_in_user)
 
 
@@ -191,6 +190,30 @@ def signup():
         db.session.commit()
         return redirect('/login')
     return render_template('signup.html', form=form)
+
+
+@app.route("/date")
+def todo_date():
+    todo_list = Todo.query.order_by(Todo.data_created).all()
+    return render_template("todo.html", todo_list=todo_list)
+
+
+@app.route("/duedate")
+def todo_due_date():
+    todo_list = Todo.query.order_by(Todo.due_date).all()
+    return render_template("todo.html", todo_list=todo_list)
+
+
+@app.route("/completed")
+def todo_complete():
+    todo_list = Todo.query.order_by(Todo.is_complete.desc()).all()
+    return render_template("todo.html", todo_list=todo_list)
+
+
+@app.route("/notcompleted")
+def todo_notcomplete():
+    todo_list = Todo.query.order_by(Todo.is_complete).all()
+    return render_template("todo.html", todo_list=todo_list)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
