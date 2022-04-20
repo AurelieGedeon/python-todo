@@ -194,26 +194,30 @@ def signup():
 
 @app.route("/date")
 def todo_date():
-    todo_list = Todo.query.order_by(Todo.data_created).all()
-    return render_template("todo.html", todo_list=todo_list)
+    tasks = Todo.query.order_by(Todo.data_created).filter_by(
+        user_id=current_user.id).all()
+    return render_template("index.html", tasks=tasks)
 
 
 @app.route("/duedate")
 def todo_due_date():
-    todo_list = Todo.query.order_by(Todo.due_date).all()
-    return render_template("todo.html", todo_list=todo_list)
+    tasks = Todo.query.order_by(Todo.due_date).filter_by(
+        user_id=current_user.id).all()
+    return render_template("index.html", tasks=tasks)
 
 
 @app.route("/completed")
 def todo_complete():
-    todo_list = Todo.query.order_by(Todo.is_complete.desc()).all()
-    return render_template("todo.html", todo_list=todo_list)
+    tasks = Todo.query.order_by(Todo.is_complete).filter_by(
+        user_id=current_user.id).all()
+    return render_template("index.html", tasks=tasks)
 
 
 @app.route("/notcompleted")
 def todo_notcomplete():
-    todo_list = Todo.query.order_by(Todo.is_complete).all()
-    return render_template("todo.html", todo_list=todo_list)
+    tasks = Todo.query.order_by(Todo.is_complete).filter_by(
+        user_id=current_user.id).all()
+    return render_template("index.html", tasks=tasks)
 
 
 @app.route('/logout', methods=['GET', 'POST'])

@@ -1,18 +1,30 @@
 {% extends 'base.html' %} {% block head %}
-<title>Signup</title>
-<body>
+<head>
+  <title>Signup</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+  />
+</head>
+<body class="login-signup">
   <h1>Signup</h1>
 
   <form method="POST" action="/signup">
-    {{form.hidden_tag()}} {{form.first_name}}
+    {{form.hidden_tag()}} {{form.first_name(class="form-control form-floating
+    mb-3", placeholder="First Name", id="floatingInput")}}
     <br />
-    {{form.last_name}}
+    {{form.last_name(class="form-control mb-3", placeholder="Last Name",
+    id="floatingInput")}}
     <br />
-    {{form.email}}
+    {{form.email (class="form-control form-floating mb-3", placeholder="Email",
+    id="floatingInput")}}
     <br />
-    {{form.password}}
+    {{form.password (class="form-control form-floating mb-3",
+    placeholder="Password", id="floatingPassword")}}
     <br />
-    {{form.submit}}
+    {{form.submit (class= "btn btn-success", value="Signup")}}
   </form>
 
   <a href="/login">Already have an account? Login</a>

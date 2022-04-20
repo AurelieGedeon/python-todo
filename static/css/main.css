@@ -1,22 +1,11 @@
+
 body {
 margin: 0;
 font-family: sans-serif;
 };
 
-
-
-
 .content {
     margin-top: 10%;
-    
-    /* background-color: white;
-    width: 32%;
-    margin-top: 7%;
-    padding: 5%;
-    position: absolute;
-    top: 20%;
-    left: 37.5%;
-    box-shadow: 5px 10px 20px 0px; */
 }
 
 table, td, th {
@@ -24,14 +13,30 @@ table, td, th {
 }
 
 .task-table{
-    max-width: 50%;
+    max-width: 80%;
 }
 
 table {
     border-collapse: collapse;
-    width: 40%;
-    margin-left: 25%;
+    width: 50%;
+    margin-left: 10%;
     margin-top: 3%;
+}
+
+.filter-button {
+    margin-left:10%
+}
+
+.task-striker {
+    background-color: white;
+    width: 60%;
+    margin-top: 5%;
+    margin-bottom: 20%;
+    padding: 5%;
+    position: absolute;
+    left: 20%;
+    box-shadow: 5px 10px 20px 0px;
+    border-radius: 10px;
 }
 
 th {
@@ -46,8 +51,15 @@ td {
 .form {
     margin-top: 20px;
     align-content: center;
-    margin-left: 31%;
-    width: 40%
+    margin-left: 15%;
+    width: 70%
+    
+}
+
+.update-form {
+    margin-top: 20px;
+    align-content: center;
+    width: 70%
     
 }
 
@@ -58,4 +70,23 @@ td {
 
 .headers {
     text-align: center;
+}
+
+.login-signup{
+    background-color: white;
+    width: 40%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 5%;
+    position: absolute;
+    left: 30%;
+    box-shadow: 5px 10px 20px 0px;
+    border-radius: 10px;
+}
+
+.logout-button {
+    display:flex;
+    justify-content: flex-end;
+    margin-top: 1%;
+    margin-right: 2%
 }
