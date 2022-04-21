@@ -1,8 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey, Integer
-from sqlalchemy.orm import relationship
-from datetime import datetime, date
+from datetime import datetime
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -192,9 +190,16 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route("/date")
-def todo_date():
+@app.route("/oldest")
+def todo_oldest():
     tasks = Todo.query.order_by(Todo.data_created).filter_by(
+        user_id=current_user.id).all()
+    return render_template("index.html", tasks=tasks)
+
+
+@app.route("/newest")
+def todo_newest():
+    tasks = Todo.query.order_by(Todo.data_created.desc()).filter_by(
         user_id=current_user.id).all()
     return render_template("index.html", tasks=tasks)
 
@@ -208,7 +213,7 @@ def todo_due_date():
 
 @app.route("/completed")
 def todo_complete():
-    tasks = Todo.query.order_by(Todo.is_complete).filter_by(
+    tasks = Todo.query.order_by(Todo.is_complete.desc()).filter_by(
         user_id=current_user.id).all()
     return render_template("index.html", tasks=tasks)
 

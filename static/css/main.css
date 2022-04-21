@@ -1,11 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+
 
 body {
 margin: 0;
-font-family: sans-serif;
+font-family: 'Roboto Mono', monospace;
 };
 
 .content {
     margin-top: 10%;
+    margin-bottom: 5%
+}
+
+.date-submit{
+    display: flex;
+    justify-content: flex-end;
 }
 
 table, td, th {
@@ -30,9 +38,9 @@ table {
 .task-striker {
     background-color: white;
     width: 60%;
-    margin-top: 5%;
+    margin-top: 3%;
     margin-bottom: 20%;
-    padding: 5%;
+    padding: 3%;
     position: absolute;
     left: 20%;
     box-shadow: 5px 10px 20px 0px;
@@ -65,7 +73,8 @@ td {
 
 #content {
     width: 70%;
-    margin-top: 5%
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 
 .headers {
@@ -75,7 +84,7 @@ td {
 .login-signup{
     background-color: white;
     width: 40%;
-    margin-top: 5%;
+    margin-top: 10%;
     margin-bottom: 5%;
     padding: 5%;
     position: absolute;
@@ -88,5 +97,11 @@ td {
     display:flex;
     justify-content: flex-end;
     margin-top: 1%;
-    margin-right: 2%
+    margin-right: 2%;
+}
+
+html {
+    background-image: url("/static/LoginSignupPage.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
