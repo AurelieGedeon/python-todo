@@ -7,10 +7,19 @@ Using this app, you are able to create, edit, and delete your tasks. Additionall
 
 ## Setup
 
-1. Install required packages
+1. Setup virtual environment (venv)
+
+```
+python3 -m venv venv
+```
+
+2. Activate your environment
+```
+. venv/bin/activate
+```
+
+3. Install required packages
 
 ```
 pip3 install -r requirements.txt
 ```
-
-
