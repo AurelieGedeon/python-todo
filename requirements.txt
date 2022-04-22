@@ -1,0 +1,6 @@
+Flask==1.0
+Flask-SQLAlchemy==2.2
+Flask-WTF==0.14.2
+Flask-Bcrypt==0.7.1
+DateTime==4.0
+Flask-Login==0.5.0
