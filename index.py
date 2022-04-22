@@ -152,6 +152,9 @@ def update(id):
     task = Todo.query.get_or_404(id)
     if request.method == 'POST':
         task.content = request.form['content']
+        task_due_date = request.form['due_date']
+        datetime_object = datetime.fromisoformat(task_due_date)
+        task.due_date = datetime_object
 
         try:
             db.session.commit()
