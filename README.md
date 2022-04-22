@@ -1,9 +1,8 @@
 # Task Cultivator
-Task Cultivator is a simple todo app using Python, Flask, and SQLAlchemy. 
 
+Task Cultivator is a simple todo app using Python, Flask, and SQLAlchemy.
 
 Using this app, you are able to create, edit, and delete your tasks. Additionally, when you have the capability to complete/uncompelete tasks.
-
 
 ## Setup
 
@@ -14,6 +13,7 @@ python3 -m venv venv
 ```
 
 2. Activate your environment
+
 ```
 . venv/bin/activate
 ```
@@ -22,4 +22,10 @@ python3 -m venv venv
 
 ```
 pip3 install -r requirements.txt
+```
+
+4. Run the Todo project
+
+```
+python3 index.py
 ```
