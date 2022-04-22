@@ -197,35 +197,40 @@ def signup():
 def todo_oldest():
     tasks = Todo.query.order_by(Todo.data_created).filter_by(
         user_id=current_user.id).all()
-    return render_template("index.html", tasks=tasks)
+    logged_in_user = User.query.filter_by(id=current_user.id).first()
+    return render_template("index.html", tasks=tasks, user=logged_in_user)
 
 
 @app.route("/newest")
 def todo_newest():
     tasks = Todo.query.order_by(Todo.data_created.desc()).filter_by(
         user_id=current_user.id).all()
-    return render_template("index.html", tasks=tasks)
+    logged_in_user = User.query.filter_by(id=current_user.id).first()
+    return render_template("index.html", tasks=tasks, user=logged_in_user)
 
 
 @app.route("/duedate")
 def todo_due_date():
     tasks = Todo.query.order_by(Todo.due_date).filter_by(
         user_id=current_user.id).all()
-    return render_template("index.html", tasks=tasks)
+    logged_in_user = User.query.filter_by(id=current_user.id).first()
+    return render_template("index.html", tasks=tasks, user=logged_in_user)
 
 
 @app.route("/completed")
 def todo_complete():
     tasks = Todo.query.order_by(Todo.is_complete.desc()).filter_by(
         user_id=current_user.id).all()
-    return render_template("index.html", tasks=tasks)
+    logged_in_user = User.query.filter_by(id=current_user.id).first()
+    return render_template("index.html", tasks=tasks, user=logged_in_user)
 
 
 @app.route("/notcompleted")
 def todo_notcomplete():
     tasks = Todo.query.order_by(Todo.is_complete).filter_by(
         user_id=current_user.id).all()
-    return render_template("index.html", tasks=tasks)
+    logged_in_user = User.query.filter_by(id=current_user.id).first()
+    return render_template("index.html", tasks=tasks, user=logged_in_user)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
