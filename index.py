@@ -13,8 +13,8 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)  # initialize database
 # tells app where database is located
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.config['SECRET_KEY'] = "thisismysecretkey"
 
+app.config['SECRET_KEY'] = "thisismysecretkey"
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
