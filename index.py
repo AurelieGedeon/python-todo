@@ -89,19 +89,7 @@ class LoginForm(FlaskForm):
 @app.route('/task/<int:id>/complete', methods=['POST'])
 def completeTask(id):
     task_to_complete = Todo.query.get_or_404(id)
-    task_to_complete.is_complete = True
-
-    try:
-        db.session.commit()
-        return redirect('/')
-    except:
-        return "Unable to complete task"
-
-
-@app.route('/task/<int:id>/undo', methods=['POST'])
-def uncompleteTask(id):
-    task_to_complete = Todo.query.get_or_404(id)
-    task_to_complete.is_complete = False
+    task_to_complete.is_complete = not task_to_complete.is_complete
 
     try:
         db.session.commit()
