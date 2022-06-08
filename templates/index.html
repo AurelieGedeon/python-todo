@@ -46,21 +46,35 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
-          <a class="dropdown-item" name="oldest" href="/sort">Oldest</a>
+          <a class="dropdown-item" href="{{ url_for('index', sort='oldest') }}"
+            >Oldest</a
+          >
         </li>
 
         <li>
-          <a class="dropdown-item" name="newest" href="/sort">Newest</a>
+          <a class="dropdown-item" href="{{ url_for('index', sort='newest') }}"
+            >Newest</a
+          >
         </li>
 
         <li>
-          <a class="dropdown-item" name="due_date" href="/sort">Due date</a>
+          <a
+            class="dropdown-item"
+            href="{{ url_for('index', sort='due_date') }}"
+            >Due date</a
+          >
         </li>
         <li>
-          <a class="dropdown-item" name="complete" href="/sort">Complete</a>
+          <a
+            class="dropdown-item"
+            href="{{ url_for('index', sort='complete') }}"
+            >Complete</a
+          >
         </li>
         <li>
-          <a class="dropdown-item" name="not_complete" href="/sort"
+          <a
+            class="dropdown-item"
+            href="{{ url_for('index', sort='not_complete') }}"
             >Not complete</a
           >
         </li>

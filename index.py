@@ -101,10 +101,40 @@ def completeTask(id):
 @app.route('/', methods=['GET'])
 @login_required
 def index():
-    tasks = Todo.query.order_by(Todo.data_created).filter_by(
-        user_id=current_user.id).all()
+    _SORT_MAP = {
+        'oldest': Todo.data_created,
+        'newest': Todo.data_created.desc(),
+        'due_date': Todo.due_date,
+        'completed': Todo.is_complete.desc(),
+        'not_completed': Todo.is_complete
+    }
+    sort = request.args.get('sort')
+    tasks = Todo.query.filter_by(
+        user_id=current_user.id).order_by(_SORT_MAP[sort]).all()
+    # tasks = Todo.query.order_by(Todo.data_created).filter_by(
+    #     user_id=current_user.id).all()
+    # if sort == "oldest":
+    #     tasks = Todo.query.order_by(Todo.data_created).filter_by(
+    #         user_id=current_user.id).all()
+
+    # elif sort == "newest":
+    #     tasks = Todo.query.order_by(Todo.data_created.desc()).filter_by(
+    #         user_id=current_user.id).all()
+
+    # elif sort == "due_date":
+    #     tasks = Todo.query.order_by(Todo.due_date).filter_by(
+    #         user_id=current_user.id).all()
+
+    # elif sort == "completed":
+    #     tasks = Todo.query.order_by(Todo.is_complete.desc()).filter_by(
+    #         user_id=current_user.id).all()
+
+    # elif sort == "not_completed":
+    #     tasks = Todo.query.order_by(Todo.is_complete).filter_by(
+    #         user_id=current_user.id).all()
+
     logged_in_user = User.query.filter_by(id=current_user.id).first()
-    return render_template('index.html', tasks=tasks, user=logged_in_user)
+    return render_template('index.html', tasks=tasks, user=logged_in_user, sort=sort)
 
 
 @app.route('/task/add', methods=['POST'])
@@ -181,30 +211,30 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route("/sort")
-def todo_sort(sort):
-    if sort == "oldest":
-        tasks = Todo.query.order_by(Todo.data_created).filter_by(
-            user_id=current_user.id).all()
+# @app.route("/sort")
+# def todo_sort(sort):
+#     if sort == "oldest":
+#         tasks = Todo.query.order_by(Todo.data_created).filter_by(
+#             user_id=current_user.id).all()
 
-    elif sort == "newest":
-        tasks = Todo.query.order_by(Todo.data_created.desc()).filter_by(
-            user_id=current_user.id).all()
+#     elif sort == "newest":
+#         tasks = Todo.query.order_by(Todo.data_created.desc()).filter_by(
+#             user_id=current_user.id).all()
 
-    elif sort == "due_date":
-        tasks = Todo.query.order_by(Todo.due_date).filter_by(
-            user_id=current_user.id).all()
+#     elif sort == "due_date":
+#         tasks = Todo.query.order_by(Todo.due_date).filter_by(
+#             user_id=current_user.id).all()
 
-    elif sort == "completed":
-        tasks = Todo.query.order_by(Todo.is_complete.desc()).filter_by(
-            user_id=current_user.id).all()
+#     elif sort == "completed":
+#         tasks = Todo.query.order_by(Todo.is_complete.desc()).filter_by(
+#             user_id=current_user.id).all()
 
-    elif sort == "not_completed":
-        tasks = Todo.query.order_by(Todo.is_complete).filter_by(
-            user_id=current_user.id).all()
+#     elif sort == "not_completed":
+#         tasks = Todo.query.order_by(Todo.is_complete).filter_by(
+#             user_id=current_user.id).all()
 
-    logged_in_user = User.query.filter_by(id=current_user.id).first()
-    return render_template("index.html", tasks=tasks, user=logged_in_user)
+#     logged_in_user = User.query.filter_by(id=current_user.id).first()
+#     return render_template("index.html", tasks=tasks, user=logged_in_user)
 
 
 # @app.route("/newest")
