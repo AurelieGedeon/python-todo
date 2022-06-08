@@ -86,6 +86,27 @@ class LoginForm(FlaskForm):
             raise ValidationError('Email does not exist. Please register.')
 
 
+@app.route('/', methods=['GET'])
+@login_required
+def index():
+    _SORT_MAP = {  # maps the sort parameter to a function that will sort the todo list
+        'oldest': Todo.data_created,
+        'newest': Todo.data_created.desc(),
+        'due_date': Todo.due_date,
+        'completed': Todo.is_complete.desc(),
+        'not_completed': Todo.is_complete
+    }
+    # get the sort parameter from the url
+    sort = request.args.get('sort', default='newest')
+    tasks = Todo.query.filter_by(
+        user_id=current_user.id).order_by(_SORT_MAP[sort]).all()
+    tasks = Todo.query.order_by(Todo.data_created).filter_by(
+        user_id=current_user.id).all()
+
+    logged_in_user = User.query.filter_by(id=current_user.id).first()
+    return render_template('index.html', tasks=tasks, user=logged_in_user)
+
+
 @app.route('/task/<int:id>/complete', methods=['POST'])
 def completeTask(id):
     task_to_complete = Todo.query.get_or_404(id)
@@ -96,17 +117,6 @@ def completeTask(id):
         return redirect('/')
     except:
         return "Unable to complete task"
-
-
-@app.route('/', methods=['GET'])
-@login_required
-def index():
-
-    tasks = Todo.query.order_by(Todo.data_created).filter_by(
-        user_id=current_user.id).all()
-
-    logged_in_user = User.query.filter_by(id=current_user.id).first()
-    return render_template('index.html', tasks=tasks, user=logged_in_user)
 
 
 @app.route('/task/add', methods=['POST'])
@@ -183,21 +193,21 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route("/sort")
-def todo_sort():
-    _SORT_MAP = {
-        'oldest': Todo.data_created,
-        'newest': Todo.data_created.desc(),
-        'due_date': Todo.due_date,
-        'completed': Todo.is_complete.desc(),
-        'not_completed': Todo.is_complete
-    }
-    sort = request.args.get('sort')
-    tasks = Todo.query.filter_by(
-        user_id=current_user.id).order_by(_SORT_MAP[sort]).all()
+# @app.route("/sort")
+# def todo_sort():
+#     _SORT_MAP = {  # maps the sort parameter to a function that will sort the todo list
+#         'oldest': Todo.data_created,
+#         'newest': Todo.data_created.desc(),
+#         'due_date': Todo.due_date,
+#         'completed': Todo.is_complete.desc(),
+#         'not_completed': Todo.is_complete
+#     }
+#     sort = request.args.get('sort')  # get the sort parameter from the url
+#     tasks = Todo.query.filter_by(
+#         user_id=current_user.id).order_by(_SORT_MAP[sort]).all()
 
-    logged_in_user = User.query.filter_by(id=current_user.id).first()
-    return render_template("index.html", tasks=tasks, user=logged_in_user, sort=sort)
+#     logged_in_user = User.query.filter_by(id=current_user.id).first()
+#     return render_template("index.html", tasks=tasks, user=logged_in_user, sort=sort)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
